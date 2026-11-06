@@ -1,0 +1,42 @@
+/* Mesmo visual do IKAcesso Escola 2.0: marinho + laranja, cartões brancos */
+:root {
+  --ikf-marinho: #0f2d5e;
+  --ikf-marinho2: #1a3f7a;
+  --ikf-laranja: #f07316;
+  --ikf-fundo: #f0f4f8;
+  --ikf-fundo3: #e8eef5;
+  --ikf-borda: rgba(15, 45, 94, .12);
+  --ikf-texto: #0f2d5e;
+  --ikf-suave: #6b7fa3;
+  --ikf-verde: #16a34a;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  background: var(--ikf-fundo);
+  color: var(--ikf-texto);
+  font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.45;
+  -webkit-text-size-adjust: 100%;
+}
+.suave { color: var(--ikf-suave); font-size: 13px; }
+.rotulo {
+  font-size: 11px; font-weight: 700; color: var(--ikf-suave);
+  text-transform: uppercase; letter-spacing: .8px;
+}
+.mono { font-family: Consolas, 'SF Mono', 'Courier New', monospace; }
+[hidden] { display: none !important; }
+
+/* Botões secundários: brancos com texto marinho (como no IKAcesso Escola) */
+.p-button.p-button-secondary.p-button-outlined {
+  background: #fff;
+  color: var(--ikf-marinho);
+  border-color: rgba(15, 45, 94, .2);
+  font-weight: 600;
+}
+.p-button.p-button-secondary.p-button-outlined:not(:disabled):hover {
+  background: var(--ikf-fundo3);
+  color: var(--ikf-marinho);
+  border-color: rgba(15, 45, 94, .3);
+}

@@ -1,0 +1,52 @@
+{
+  "id": "/",
+  "name": "IKEscola 2.0 App",
+  "short_name": "IKEscola",
+  "description": "Aviso de entrada e saída do aluno na escola",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f0f4f8",
+  "theme_color": "#0f2d5e",
+  "categories": [
+    "education",
+    "utilities"
+  ],
+  "icons": [
+    {
+      "src": "/icones/icone-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icones/icone-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icones/icone-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/ativar.png",
+      "sizes": "780x1400",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Ativar avisos lendo o QR do bilhete"
+    },
+    {
+      "src": "/screenshots/pronto.png",
+      "sizes": "780x1400",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Entrada e saída do aluno no celular"
+    }
+  ]
+}
