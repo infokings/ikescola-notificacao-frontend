@@ -1,11 +1,5 @@
 version: 0.2
 
-env:
-  variables:
-    BUCKET: ikponto-docs-hom
-    PREFIX: ikescola-notificacao-mfe
-    DISTRIBUTION_ID: E2Z1TNKMNH99L8
-
 phases:
   install:
     runtime-versions:
@@ -16,14 +10,7 @@ phases:
       - npm ci
       - npm run build
 
-      - echo "Publicando no S3 ($BUCKET/$PREFIX)"
-      - aws s3 sync dist/assets "s3://$BUCKET/$PREFIX/assets" --cache-control "public, max-age=31536000, immutable" --delete
-      - aws s3 sync dist/icones "s3://$BUCKET/$PREFIX/icones" --cache-control "public, max-age=86400" --delete
-      - aws s3 sync dist/screenshots "s3://$BUCKET/$PREFIX/screenshots" --cache-control "public, max-age=86400" --delete
-      - aws s3 cp dist/sw.js "s3://$BUCKET/$PREFIX/sw.js" --cache-control "no-cache" --content-type "text/javascript; charset=utf-8"
-      - aws s3 cp dist/manifest.webmanifest "s3://$BUCKET/$PREFIX/manifest.webmanifest" --cache-control "no-cache" --content-type "application/manifest+json"
-      - aws s3 cp dist/privacidade.html "s3://$BUCKET/$PREFIX/privacidade.html" --cache-control "no-cache" --content-type "text/html; charset=utf-8"
-      - aws s3 cp dist/index.html "s3://$BUCKET/$PREFIX/index.html" --cache-control "no-cache" --content-type "text/html; charset=utf-8"
-
-      - echo "Invalidando cache do CloudFront ($DISTRIBUTION_ID)"
-      - aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION_ID" --paths "/" "/index.html" "/sw.js" "/manifest.webmanifest" "/privacidade.html"
+artifacts:
+  base-directory: dist
+  files:
+    - '**/*'
