@@ -1,7 +1,9 @@
 #!/bin/sh
 # Gera o build do frontend e publica no S3, com o Cache-Control certo para cada arquivo, e limpa o cache do
 # CloudFront dos arquivos que não têm hash no nome.
-#   BUCKET=ikescola-app-frontend DISTRIBUICAO=E123ABC456 ./deploy/publicar.sh
+#   BUCKET=ikponto-docs-hom/ikescola-notificacao-mfe DISTRIBUICAO=E123ABC456 ./deploy/publicar.sh
+# BUCKET pode incluir um prefixo (pasta) — é só concatenado em "s3://$BUCKET/...". Usamos o bucket compartilhado
+# ikponto-docs-hom, com uma pasta por app (mesmo padrão dos outros frontends: cliente-mfe/, ikeventos-front/, etc.).
 # Precisa de: Node.js 20+ e AWS CLI configurado (permissão s3:PutObject no bucket e cloudfront:CreateInvalidation).
 set -e
 : "${BUCKET:?defina BUCKET (nome do bucket S3)}"

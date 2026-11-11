@@ -27,12 +27,14 @@ certificados de us-east-1).
 
 ---
 
-## 1. Bucket S3
+## 1. Pasta no bucket compartilhado
 
-S3 → *Create bucket*:
-- Nome, por exemplo, `ikescola-app-frontend`, na região us-east-1.
-- **Block all public access: ligado**. O bucket fica privado e só o CloudFront lê.
-- *Static website hosting*: **desligado**. Não é preciso.
+Mesmo padrão dos outros frontends (`cliente-mfe/`, `ikacesso-escola-mfe/`, `ikeventos-front/`, etc.): usamos o
+bucket **já existente** `ikponto-docs-hom`, numa pasta própria — não criamos um bucket novo.
+
+- Pasta: `ikescola-notificacao-mfe/` (criada sozinha no primeiro `aws s3 sync`, ou manualmente via *Criar pasta*).
+- O bucket já é privado (block public access ligado) e só o CloudFront lê, via as políticas OAC existentes — só
+  precisamos **acrescentar** (nunca substituir) a declaração que o passo 3 vai gerar pra nossa distribuição nova.
 
 ## 2. Função do CloudFront
 
@@ -49,9 +51,12 @@ extensão passam direto.
 CloudFront → *Create distribution*.
 
 **Origem 1 (S3):**
-- *Origin domain*: escolha o bucket `ikescola-app-frontend`.
+- *Origin domain*: escolha o bucket `ikponto-docs-hom`.
+- *Origin path*: `/ikescola-notificacao-mfe`.
 - *Origin access*: **Origin access control settings** → *Create new OAC*.
-- No fim, o console mostra uma **política do bucket**: copie e cole em S3 → bucket → *Permissions* → *Bucket policy*.
+- No fim, o console mostra uma **declaração de política do bucket**: abra S3 → `ikponto-docs-hom` → *Permissions* →
+  *Bucket policy* e **acrescente** essa declaração ao array `Statement` existente (não substitua a política toda —
+  o bucket já serve outros frontends com suas próprias declarações).
 
 **Comportamento padrão (`*`) → S3:**
 
@@ -107,7 +112,7 @@ Se usar Route 53, crie um registro A do tipo Alias apontando para a distribuiç�
 Num computador com **Node.js 20+** e o **AWS CLI** configurado, com permissão no bucket e para invalidar o cache:
 
 ```bash
-BUCKET=ikescola-app-frontend DISTRIBUICAO=<ID da distribuição> ./deploy/publicar.sh
+BUCKET=ikponto-docs-hom/ikescola-notificacao-mfe DISTRIBUICAO=<ID da distribuição> ./deploy/publicar.sh
 ```
 
 O script faz o build e envia cada arquivo com o cache certo (ver README) e, no fim, limpa o cache do CloudFront.
